@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<title>service</title>
+</head>
+<body>
+<div ng-app="myApp">
+	<div ng-controller="myCtrl4">
+		<p>现在时间是:</p>
+		<h1>{{theTime}}</h1>
+	</div>
+	<p>$interval 访问在指定的周期(以毫秒计)来调用函数或计算表达式。</p>
+	<hr/>
+	<div ng-controller="myCtrl">
+		<p> 当前页面的url:</p>
+		<h3>{{myUrl}}</h3>
+	</div>
+	<p>该实例使用了内建的 $location 服务获取当前页面的 URL。</p>
+
+	<hr/>
+	<div ng-controller="myCtrl2">
+		<p>延时显示信息timeout:</p>
+		<h4>{{heder}}</h4>
+	</div>
+	<hr/>
+
+	<div ng-controller="myCtrl3">
+		<h4>自定义service:</h4>
+		十进制数字: <input type="number" ng-model="num" ng-change="change()">
+		十六进制数字: <input type="string" ng-model="hexx" ng-change="hextonum()">
+		<p>二进制值:{{bina}}</p>
+		<p>十六进制值:{{hexx  | uppercase}}</p>
+	</div>
+	<hr/>
+	<div ng-controller="myCtrl5">
+		<h4>自定义filter:</h4>
+		十进制数字: <input type="number" ng-model="num2">
+		<p>二进制值:{{num2 | binafilt}}</p>
+		<p>十六进制值:{{num2| hexfilt |uppercase}}</p>
+	</div>
+</div>
+
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $location) {
+    $scope.myUrl = $location.absUrl();
+});
+app.controller('myCtrl2',function($scope, $timeout){
+	$scope.heder = '初始信息，两秒之后显示';
+	$timeout(function() {
+		$scope.heder = '两秒已过';
+	}, 2000);
+});
+app.controller('myCtrl4',function($scope, $interval){
+	$scope.theTime = new Date().toLocaleTimeString();
+	$interval(function(){
+		$scope.theTime = new Date().toLocaleTimeString();
+	},1000);
+});
+
+//自定义service
+app.service('hex', function() {
+    this.num2hex = function (x) {
+        return x.toString(16);
+    }
+});
+app.service('binary', function() {
+    this.num2binary = function (x) {
+        return x.toString(2);
+    }
+});
+app.service('hex2num', function() {
+    this.hex2num = function (x) {
+        return parseInt(x,16);
+    }
+});
+app.controller('myCtrl3',function($scope, hex, binary, hex2num){
+	$scope.num = 1;
+	$scope.hexx = hex.num2hex($scope.num);
+	$scope.bina =  binary.num2binary($scope.num);
+	$scope.change = function(){
+		$scope.hexx = hex.num2hex($scope.num);
+		$scope.bina =  binary.num2binary($scope.num);
+	};
+	$scope.hextonum = function(){
+		$scope.num = hex2num.hex2num($scope.hexx);
+		$scope.hexx = hex.num2hex($scope.num);
+		$scope.bina =  binary.num2binary($scope.num);
+	};
+});
+
+//自定义filter
+app.filter('hexfilt',['hex', function(hex) {
+    return function(x) {
+        return hex.num2hex(x);
+    };
+}]);
+
+app.filter('binafilt',['binary', function(binary) {
+    return function(x) {
+        return binary.num2binary(x);
+    };
+}]);
+
+
+app.controller('myCtrl5',function($scope){
+	$scope.num2 = 1;
+});
+
+</script>
+
+</body>
+</html>

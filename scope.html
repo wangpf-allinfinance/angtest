@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>scope</title>
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<script>
+var app = angular.module('myApp', [])
+app.controller('myCtrl', function($scope,$rootScope) {
+    $scope.carname = "沃尔沃";
+    $scope.names = ['小明', '小黑', '小花'];
+    $rootScope.lastname = "中国";
+});
+app.controller('myCtrl2', function($scope){
+	$scope.carname = "宝马";
+});
+</script>
+<code>{{}}</code>
+<div class="row">
+<pre class="col-md-4 col-md-offset-1">
+控制器中创建一个属性名 "carname"，对应了视图中使用{{}}中的名称。
+控制器中创建一个属性名 "names"，对应了视图中使用列表中的名称组合。
+控制器中创建一个属性名 "lastname"，对应了视图中的全局变量lastname。
+	可作用于整个应用中。是各个 controller 中 scope 的桥梁。
+	用 rootscope 定义的值，可以在各个 controller 中使用。
+</pre>
+</div>
+
+
+<div ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<h3>{{carname}}-{{lastname}}</h3>
+
+		<ol class="list-unstyled">
+			<li ng-repeat='x in names'>车主. {{x}}</li>
+		</ol>
+		
+	</div>
+ 	<hr/>
+
+	<div ng-controller="myCtrl2">
+		<h3>{{carname}}-{{lastname}}</h3>
+	</div>
+	<hr/>
+</div>
+
+</body>
+</html>

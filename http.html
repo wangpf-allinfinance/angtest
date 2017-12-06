@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>html</title>
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+angular.module('myapp',[]).controller('myCtrl',function($scope, $http){
+	 $http.get("http://www.runoob.com/try/angularjs/data/sites.php").success(function (response) {
+	 	$scope.names = response.sites;
+	 });
+	 $scope.names = [
+        {
+            "Name": "菜鸟教程",
+            "Url": "www.runoob.com",
+            "Country": "CN"
+        },
+        {
+            "Name": "Google",
+            "Url": "www.google.com",
+            "Country": "USA"
+        },
+        {
+            "Name": "Facebook",
+            "Url": "www.facebook.com",
+            "Country": "USA"
+        },
+        {
+            "Name": "微博",
+            "Url": "www.weibo.com",
+            "Country": "CN"
+        }
+    ];
+});
+</script>
+</head>
+<body>
+<div class="panel panel-success" ng-app="myapp" ng-controller="myCtrl" style="width:400px;">
+    <div class="panel-heading">
+        <h3 class="panel-title">内容展示</h3>
+    </div>
+    <ul class="list-group">
+        <li ng-repeat="x in names | filter:filt | orderBy:'country'" class="list-group-item">名字:{{x.Name}}, 地址:{{x.Url}}, 国家:{{x.Country}}</li>   
+        </ul>
+</div>
+
+<div class="panel panel-success"  style="width:400px;">
+    <div class="panel-heading">
+        <h3 class="panel-title">获取的数据(目前访问的是菜鸟网内容，跨域访问有问题)</h3>
+    </div>
+<div class="panel-body">
+<pre>
+{
+    "sites": [
+        {
+            "Name": "菜鸟教程",
+            "Url": "www.runoob.com",
+            "Country": "CN"
+        },
+        {
+            "Name": "Google",
+            "Url": "www.google.com",
+            "Country": "USA"
+        },
+        {
+            "Name": "Facebook",
+            "Url": "www.facebook.com",
+            "Country": "USA"
+        },
+        {
+            "Name": "微博",
+            "Url": "www.weibo.com",
+            "Country": "CN"
+        }
+    ]
+}
+</pre>
+</pre>
+</div>
+</body>
+</html>

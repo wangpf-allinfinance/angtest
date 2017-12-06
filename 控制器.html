@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>控制器</title>
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+angular.module('myapp',[]).controller('myCtrl',function($scope){
+	$scope.xing = '王';
+	$scope.name = '朋飞';
+	$scope.names = [
+        {name:'Jani',country:'Norway'},
+        {name:'Hege',country:'Sweden'},
+        {name:'Kai',country:'Denmark'}
+    ];
+    $scope.fullname = function() {
+        return $scope.xing + $scope.name;
+    }
+});
+
+</script>
+</head>
+<body ng-app="myapp">
+<div ng-controller="myCtrl" style="width:300px;" class="form-horizontal">
+	<div class="form-group">
+	    <label for="xing" class="col-sm-3 control-label">姓氏</label>
+	    <div class="col-sm-7">
+	    	<input type="text" class="form-control" id="xing" placeholder="请输入姓氏" ng-model="xing">
+	    </div>
+	</div>
+	<div class="form-group">
+	    <label for="name" class="col-sm-3 control-label">名字</label>
+	    <div class="col-sm-7">
+	    	<input type="text" class="form-control" id="name" placeholder="请输入名字" ng-model="name">
+	    </div>
+	</div>
+
+	<div style="height:30px;" class="col-sm-10">&nbsp;</div>
+	<div class="col-sm-10">
+		<code>{{xing}}{{name}}</code><br/>fullname:<code>{{fullname()||'tst'}}</code>
+	</div>
+	<div style="height:30px;" class="col-sm-10">&nbsp;</div>
+	<div class="col-sm-10" ng-repeat="x in names">
+		<code>{{x.name}}-{{x.country}}</code><br/>
+	</div>
+</div>
+
+</body>
+</html>

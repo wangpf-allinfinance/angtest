@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>过滤器</title>
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+angular.module('myapp',[]).controller('myCtrl',function($scope){
+	$scope.names = [
+        {name:'Jani',country:'Norway',amt:100},
+        {name:'Hege',country:'Sweden',amt:1000},
+        {name:'Kai',country:'Denmark',amt:10000}
+    ];
+});
+
+</script>
+</head>
+<body ng-app="myapp">
+<div ng-controller="myCtrl" style="width:800px;">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <caption>AngularJS 过滤器可用于转换数据：</caption>
+        <thead>
+            <tr class="success">
+                <td>过滤器</td>
+                <td>描述</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>currency</td>
+                <td>格式化数字为货币格式。</td>
+            </tr>
+            <tr>
+                <td>filter</td>
+                <td>从数组项中选择一个子集。</td>
+            </tr>
+            <tr>
+                <td>lowercase</td>
+                <td>格式化字符串为小写。</td>
+            </tr>
+            <tr>
+                <td>orderBy</td>
+                <td>根据某个表达式排列数组。</td>
+            </tr>
+            <tr>
+                <td>uppercase</td>
+                <td>格式化字符串为大写。</td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="height:30px;"></div>
+    <div class="panel panel-success">
+        <div class="panel-heading"><input type="text" class="form-control form-inline" placeholder="过滤字符实例" ng-model="filt"></div>
+        <ul class="list-group">
+        <li ng-repeat="x in names | filter:filt | orderBy:'country'" class="list-group-item">名字:{{x.name | lowercase}}, 国别:{{x.country | uppercase}}, 随身现金:{{x.amt | currency:'￥'}}</li>   
+        </ul>
+    </div>
+<div>
+<pre>
+$scope.names = [
+        {name:'Jani',country:'Norway',amt:100},
+        {name:'Hege',country:'Sweden',amt:1000},
+        {name:'Kai',country:'Denmark',amt:10000}
+    ];
+ng-repeat="x in names | filter:filt | orderBy:'country'"
+名字:[[x.name | lowercase]], 国别:[[x.country | uppercase]], 随身现金:[[x.amt | currency:'￥']]
+</pre>
+
+</body>
+</html>

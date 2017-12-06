@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>html</title>
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+angular.module('myapp',[]).controller('myCtrl',function($scope){
+    $scope.cars = {
+        car01 : {brand : "Ford", model : "Mustang", color : "red"},
+        car02 : {brand : "Fiat", model : "500", color : "white"},
+        car03 : {brand : "Volvo", model : "XC90", color : "black"}
+    };
+    $scope.car = {brand : "默认", model : "默认", color : "默认"};
+});
+</script>
+</head>
+<body>
+<div ng-app="myapp" ng-controller="myCtrl">
+    <div class="panel panel-success" ng-app="myapp" ng-controller="myCtrl" style="width:400px;">
+    <div class="panel-heading">
+        <select class="form-control" ng-model="car" ng-options="x for (x,y) in cars">
+        </select>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">品牌:{{car.brand}}</li>  
+        <li class="list-group-item">型号:{{car.model}}</li>  
+        <li class="list-group-item">眼色:{{car.color}}</li>  
+    </ul>
+</div>
+</div>
+</body>
+</html>
